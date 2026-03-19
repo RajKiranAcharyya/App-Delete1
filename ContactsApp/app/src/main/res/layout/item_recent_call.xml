@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="12dp"
     android:paddingHorizontal="16dp"
+    android:paddingVertical="10dp"
     android:gravity="center_vertical"
     android:background="?attr/selectableItemBackground">
 
-    <!-- Avatar -->
     <FrameLayout
         android:id="@+id/avatar_frame"
         android:layout_width="48dp"
@@ -31,7 +30,6 @@
             android:textStyle="bold" />
     </FrameLayout>
 
-    <!-- Name / number / date -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,21 +71,37 @@
                 android:ellipsize="end" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_duration"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="11sp"
-            android:layout_marginTop="1dp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:id="@+id/tv_duration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="11sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <!-- Date on the right -->
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="?attr/colorOnSurfaceVariant"
-        android:textSize="11sp" />
+    <ImageButton
+        android:id="@+id/btn_call"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/ic_dial"
+        android:background="@drawable/bg_call_btn"
+        android:contentDescription="Call back"
+        android:scaleType="center" />
 
 </LinearLayout>
