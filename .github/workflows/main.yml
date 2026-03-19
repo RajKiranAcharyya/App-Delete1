@@ -19,8 +19,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant execute permission
-        run: chmod +x ContactsApp/gradlew
+      - name: Install Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.4'
+
+      - name: Generate Gradle Wrapper
+        run: cd ContactsApp && gradle wrapper
 
       - name: Build Debug APK
         run: cd ContactsApp && ./gradlew assembleDebug
