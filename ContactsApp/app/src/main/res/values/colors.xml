@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#00897B</color>
+    <color name="primary_variant">#005B4F</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="secondary">#00ACC1</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="background">#F5F5F5</color>
+    <color name="on_surface">#1C1B1F</color>
+
+    <!-- Call type colours -->
+    <color name="call_incoming">#43A047</color>
+    <color name="call_outgoing">#1E88E5</color>
+    <color name="call_missed">#E53935</color>
+</resources>

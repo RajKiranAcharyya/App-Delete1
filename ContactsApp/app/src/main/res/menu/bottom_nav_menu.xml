@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_contacts"
+        android:icon="@drawable/ic_contacts_tab"
+        android:title="Contacts" />
+    <item
+        android:id="@+id/nav_recents"
+        android:icon="@drawable/ic_history_tab"
+        android:title="Recents" />
+</menu>
