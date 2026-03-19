@@ -1,5 +1,6 @@
 package com.example.contactsapp.ui.recents
 
+import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.provider.CallLog
@@ -34,7 +35,6 @@ class RecentsAdapter : ListAdapter<CallLogEntry, RecentsAdapter.VH>(Diff()) {
             b.tvName.text  = e.displayName
             b.tvPhone.text = e.phoneNumber
 
-            // ── Date / time ──────────────────────────────────────────────────
             val now = Calendar.getInstance()
             val callCal = Calendar.getInstance().apply { timeInMillis = e.date }
             b.tvDate.text = when {
@@ -47,13 +47,11 @@ class RecentsAdapter : ListAdapter<CallLogEntry, RecentsAdapter.VH>(Diff()) {
                     SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(Date(e.date))
             }
 
-            // ── Duration ─────────────────────────────────────────────────────
             b.tvDuration.text = if (e.duration > 0) {
                 val m = e.duration / 60; val s = e.duration % 60
                 if (m > 0) "${m}m ${s}s" else "${s}s"
             } else ""
 
-            // ── Call type icon + colour ───────────────────────────────────────
             val (iconRes, colorRes) = when (e.type) {
                 CallLog.Calls.INCOMING_TYPE -> R.drawable.ic_call_incoming to R.color.call_incoming
                 CallLog.Calls.OUTGOING_TYPE -> R.drawable.ic_call_outgoing to R.color.call_outgoing
@@ -63,7 +61,6 @@ class RecentsAdapter : ListAdapter<CallLogEntry, RecentsAdapter.VH>(Diff()) {
             b.ivCallType.setImageResource(iconRes)
             b.ivCallType.setColorFilter(ContextCompat.getColor(ctx, colorRes))
 
-            // ── Avatar ───────────────────────────────────────────────────────
             if (!e.photoUri.isNullOrBlank()) {
                 b.imgAvatar.setImageURI(Uri.parse(e.photoUri))
                 b.imgAvatar.visibility = View.VISIBLE
@@ -73,8 +70,16 @@ class RecentsAdapter : ListAdapter<CallLogEntry, RecentsAdapter.VH>(Diff()) {
                 b.tvInitial.visibility = View.VISIBLE
                 b.tvInitial.text = e.initial
                 val color = avatarColors[e.displayName.hashCode().and(0x7fffffff) % avatarColors.size]
-                val bg = GradientDrawable().apply { shape = GradientDrawable.OVAL; setColor(color) }
-                b.avatarFrame.background = bg
+                b.avatarFrame.background = GradientDrawable().apply {
+                    shape = GradientDrawable.OVAL; setColor(color)
+                }
+            }
+
+            b.btnCall.setOnClickListener {
+                ctx.startActivity(Intent(Intent.ACTION_CALL).apply {
+                    data = Uri.parse("tel:${Uri.encode(e.phoneNumber)}")
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                })
             }
         }
     }
