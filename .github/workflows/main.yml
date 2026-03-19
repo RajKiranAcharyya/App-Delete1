@@ -20,13 +20,13 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant execute permission
-        run: chmod +x ContactsApp/ContactsApp/gradlew
+        run: chmod +x ContactsApp/gradlew
 
       - name: Build Debug APK
-        run: cd ContactsApp/ContactsApp && ./gradlew assembleDebug
+        run: cd ContactsApp && ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: ContactsApp-debug
-          path: ContactsApp/ContactsApp/app/build/outputs/apk/debug/app-debug.apk
+          path: ContactsApp/app/build/outputs/apk/debug/app-debug.apk
