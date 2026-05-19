@@ -56,10 +56,16 @@ class ContactsFragment : Fragment() {
         })
 
         binding.fabAddContact.setOnClickListener {
-            showAddContactDialog()
+            showAddContactDialog(null)
         }
 
         loadContacts()
+
+        val prefill = arguments?.getString("PREFILL_NUMBER")
+        if (prefill != null) {
+            arguments?.remove("PREFILL_NUMBER")
+            showAddContactDialog(prefill)
+        }
     }
 
     override fun onResume() {
@@ -135,7 +141,7 @@ class ContactsFragment : Fragment() {
         _binding = null
     }
 
-    private fun showAddContactDialog() {
+    private fun showAddContactDialog(prefillNumber: String? = null) {
         val ctx = requireContext()
         val layout = LinearLayout(ctx).apply {
             orientation = LinearLayout.VERTICAL
@@ -145,6 +151,9 @@ class ContactsFragment : Fragment() {
         val phoneInput = EditText(ctx).apply {
             hint = "Phone Number"
             inputType = android.text.InputType.TYPE_CLASS_PHONE
+        }
+        if (prefillNumber != null) {
+            phoneInput.setText(prefillNumber)
         }
         layout.addView(nameInput)
         layout.addView(phoneInput)
