@@ -51,6 +51,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         checkPermissions()
+        processIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        processIntent(intent)
+    }
+
+    private fun processIntent(incomingIntent: Intent?) {
+        val number = incomingIntent?.getStringExtra("ADD_UNKNOWN_NUMBER")
+        if (number != null) {
+            incomingIntent.removeExtra("ADD_UNKNOWN_NUMBER")
+            // Switch to contacts tab
+            binding.bottomNav.selectedItemId = R.id.nav_contacts 
+            val frag = ContactsFragment().apply {
+                arguments = Bundle().apply { putString("PREFILL_NUMBER", number) }
+            }
+            loadFragment(frag)
+        }
     }
 
     // ── Bottom Navigation ────────────────────────────────────────────────────
