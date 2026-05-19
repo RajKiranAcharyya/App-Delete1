@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contactsapp.MainActivity
 import com.example.contactsapp.R
 import com.example.contactsapp.databinding.ItemRecentCallBinding
 import com.example.contactsapp.model.CallLogEntry
@@ -73,6 +74,20 @@ class RecentsAdapter : ListAdapter<CallLogEntry, RecentsAdapter.VH>(Diff()) {
                 b.avatarFrame.background = GradientDrawable().apply {
                     shape = GradientDrawable.OVAL; setColor(color)
                 }
+            }
+
+            // Show add contact button if unknown contact (empty displayName or just the number)
+            if (e.displayName.isEmpty() || e.displayName == e.phoneNumber) {
+                b.btnAddContact.visibility = View.VISIBLE
+                b.btnAddContact.setOnClickListener {
+                    val intent = Intent(ctx, MainActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        putExtra("ADD_UNKNOWN_NUMBER", e.phoneNumber)
+                    }
+                    ctx.startActivity(intent)
+                }
+            } else {
+                b.btnAddContact.visibility = View.GONE
             }
 
             b.btnCall.setOnClickListener {
