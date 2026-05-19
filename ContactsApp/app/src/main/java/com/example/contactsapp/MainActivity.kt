@@ -27,7 +27,9 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.READ_CALL_LOG,
         Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.READ_PHONE_NUMBERS,
-        Manifest.permission.CALL_PHONE
+        Manifest.permission.CALL_PHONE,
+        Manifest.permission.WRITE_CONTACTS,
+        Manifest.permission.GET_ACCOUNTS
     ).apply {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             add(Manifest.permission.POST_NOTIFICATIONS)
