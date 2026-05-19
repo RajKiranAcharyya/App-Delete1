@@ -1,6 +1,7 @@
 package com.example.contactsapp.overlay
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.graphics.PixelFormat
 import android.graphics.drawable.GradientDrawable
@@ -13,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import com.example.contactsapp.MainActivity
 import com.example.contactsapp.R
 import com.example.contactsapp.databinding.OverlayCallPopupBinding
 import kotlin.concurrent.thread
@@ -85,6 +87,17 @@ object OverlayController {
                             binding.imgAvatar.setImageURI(Uri.parse(contact.second))
                             binding.imgAvatar.visibility = View.VISIBLE
                             binding.tvInitial.visibility = View.GONE
+                        }
+                    } else {
+                        // Unknown number - show add button
+                        binding.btnAddUnknown.visibility = View.VISIBLE
+                        binding.btnAddUnknown.setOnClickListener {
+                            hide()
+                            val intent = Intent(appCtx, MainActivity::class.java).apply {
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                putExtra("ADD_UNKNOWN_NUMBER", number)
+                            }
+                            appCtx.startActivity(intent)
                         }
                     }
                 }
