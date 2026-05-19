@@ -46,6 +46,16 @@
                 android:letterSpacing="0.08" />
 
             <ImageButton
+                android:id="@+id/btn_add_unknown"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@android:drawable/ic_input_add"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Add Contact"
+                android:visibility="gone"
+                app:tint="?attr/colorPrimary" />
+
+            <ImageButton
                 android:id="@+id/btn_dismiss"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
